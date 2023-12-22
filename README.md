@@ -1,13 +1,24 @@
-# Sample Hardhat Project
+## Deposit ERC20 Tokens on Aave
 
-This project demonstrates a basic Hardhat use case. It comes with a sample contract, a test for that contract, and a script that deploys that contract.
+Js script to swap ERC 20 tokens using the best route selected by Alpharouter powered by Uniswap V3.
 
-Try running some of the following tasks:
+### Pre- Requisites
+
+- Metamask Account
+- Node js and npm
+
+### Setting up locally 
+
+Set up env according to .env.example
 
 ```shell
-npx hardhat help
-npx hardhat test
-REPORT_GAS=true npx hardhat test
-npx hardhat node
-npx hardhat run scripts/deploy.js
+yarn
+
+yarn hardhat run scripts/swapToken.js
 ```
+
+
+
+
+
+
