@@ -131,4 +131,34 @@ describe("Uniswap V3 Swap", function () {
       parseFloat(hre.ethers.utils.formatUnits(usdcBalance, 6))
     ).to.be.above(0);
   });
+
+  it("Should fail if the input amount is greater than token balance", function () {
+    const inputamount = hre.ethers.utils.parseEther("10").toString();
+    console.log("inputamount" + inputamount);
+    expect(
+      executeSwap(inputamount, options, router, signer)
+    ).to.be.rejectedWith("Transaction reverted: gas limit exceeded.");
+  });
+
+  it("Should fail if token approval is not done", async function () {
+    const inputamount = hre.ethers.utils.parseEther("1").toString();
+
+    const route = await router.route(
+      CurrencyAmount.fromRawAmount(WETH_TOKEN, inputamount),
+      USDC_TOKEN,
+      TradeType.EXACT_INPUT,
+      options
+    );
+
+    expect(
+      signer.sendTransaction({
+        data: route?.methodParameters?.calldata,
+        to: V3_SWAP_ROUTER_ADDRESS,
+        value: route?.methodParameters?.value,
+        from: signer.address,
+        maxFeePerGas: 100000000000,
+        maxPriorityFeePerGas: 100000000000,
+      })
+    ).to.be.rejectedWith("Transaction reverted: gas limit exceeded.");
+  });
 });
