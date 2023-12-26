@@ -17,6 +17,13 @@ yarn
 yarn hardhat run scripts/swapToken.js
 ```
 
+### Running Tests
+
+```shell
+yarn hardhat test
+```
+
+
 
 
 
